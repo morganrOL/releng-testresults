@@ -39,7 +39,7 @@ RUN apk --no-cache add --update openssl && \
 
 RUN pip install --upgrade requests
 
-RUN git clone https://gerrit.opnfv.org/gerrit/releng-testresults /home/releng-testresults
+RUN git clone https://github.com/morganrOL/releng-testresults.git
 
 WORKDIR /home/releng-testresults/testapi
 RUN pip install -r requirements.txt
