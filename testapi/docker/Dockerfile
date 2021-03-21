@@ -33,16 +33,20 @@ ENV HOME /home
 ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
 
 COPY requirements.txt requirements.txt
-RUN apk --no-cache add --update openssl && \
+RUN apk --no-cache add --update openssl bash && \
     apk --no-cache add --virtual .build-deps --update \
-        gcc musl-dev linux-headers libffi-dev \
+    gcc musl-dev linux-headers libressl-dev libffi-dev git
 
 RUN pip install --upgrade requests
 
 RUN git clone https://github.com/morganrOL/releng-testresults.git
 
-WORKDIR /home/releng-testresults/testapi
+RUN pwd
+RUN ls -lah
+
+WORKDIR /releng-testresults/testapi
 RUN pip install -r requirements.txt
 
 RUN python setup.py install
 CMD ["bash", "docker/start-server.sh"]
+
